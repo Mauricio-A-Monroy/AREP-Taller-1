@@ -207,7 +207,7 @@ public class HttpServer{
             String stringId = requestQuery.replace("id=", "").trim();
             Integer id = Integer.parseInt(stringId);
 
-            dataStore.remove(id - 1);
+            dataStore.remove(id);
 
             response = "HTTP/1.1 200 Ok\r\n"
                     + "Content-Type: application/json\r\n"
