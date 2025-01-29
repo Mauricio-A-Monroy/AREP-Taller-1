@@ -34,13 +34,13 @@
 </div>
 
 <script>
-    const apiUrl = "/app/rest-service"; // Cambia esta ruta según tu servidor
     // Cargar la tabla al iniciar la página
     window.onload = fetchItems;
 
     // Función para obtener todos los elementos (GET)
     function fetchItems() {
-        fetch(apiUrl)
+        let url = "/app/rest-service";
+        fetch(url)
             .then(response => response.json())
             .then(data => {
                 const tableBody = document.getElementById("data-table").querySelector("tbody");
@@ -64,9 +64,7 @@
     }
 
     // Función para añadir un nuevo elemento (POST)
-
     function addItem(){
-
         const name = document.getElementById("postname").value;
         let url = "/app/rest-service?name=" + name;
         console.log("The name is: ", name);
@@ -82,43 +80,27 @@
             });
     }
 
-    function addItem1() {
-        const name = document.getElementById("new-item-name").value;
-        if (!name) {
-            alert("Por favor ingrese un nombre.");
-            return;
-        }
-
-        fetch(apiUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name: name }),
-        })
-            .then(() => {
-                document.getElementById("new-item-name").value = ""; // Limpiar el input
-                fetchItems(); // Actualizar la tabla
-            });
-    }
-
     // Función para editar un elemento (PUT)
     function editItem(id) {
         const newName = prompt("Ingrese el nuevo nombre:");
+        let url = "/app/rest-service?id=" + id + "&newName=" + newName;
+        console.log("The id to changes is: ", id, " and the new name is: ", newName);
         if (!newName) {
             alert("El nombre no puede estar vacío.");
             return;
         }
 
-        fetch(`${apiUrl}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name: newName }),
-        }).then(fetchItems); // Actualizar la tabla
+        fetch(url, {method: "PUT"})
+            .then(fetchItems); // Actualizar la tabla
     }
 
     // Función para eliminar un elemento (DELETE)
     function deleteItem(id) {
+        let url = "/app/rest-service?id=" + id;
+
         if (confirm("¿Está seguro de que desea eliminar este elemento?")) {
-            fetch(`${apiUrl}/${id}`, { method: "DELETE" }).then(fetchItems); // Actualizar la tabla
+            fetch(url, { method: "DELETE" })
+                .then(fetchItems); // Actualizar la tabla
         }
     }
 </script>

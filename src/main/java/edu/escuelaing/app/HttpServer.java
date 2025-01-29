@@ -72,12 +72,11 @@ public class HttpServer{
             System.out.println("Counter: " + idCounter);
 
             if (filePath.startsWith("/app/rest-service")) {
-                handleRestRequest(HTTPRequest, filePath, resourceURI.getQuery(),out, dataStore, idCounter);
+                handleRestRequest(HTTPRequest, filePath, resourceURI,out, dataStore, idCounter);
                 if (HTTPRequest.equals("POST")) {
                     idCounter += 1;
                 }
             } else {
-
 
                 if (file.exists() && !file.isDirectory()) {
                     String contentType = getContentType(filePath);
@@ -138,18 +137,19 @@ public class HttpServer{
         return fileData;
     }
 
-    private static void handleRestRequest(String method, String filePath, String requestBody, PrintWriter out, Map<Integer, String> dataStore, int idCounter) {
+    private static void handleRestRequest(String method, String filePath, URI resourceURI, PrintWriter out, Map<Integer, String> dataStore, int idCounter) {
         String response = "";
         String idParam = filePath.replace("/app/rest-service/", "").trim();
 
         if (method.equals("GET")) {
             // Convertir los valores a una lista de strings con comillas
             StringBuilder namesJson = new StringBuilder("[ \n ");
-            for (int i = 0 ; i < dataStore.size() ; i++) {
-                namesJson.append("\n {\"id\":").
-                        append(String.valueOf(i+1) + ", ").
-                        append("\"name\": \"").
-                        append(dataStore.get(i) + "\" },");
+            for (Integer key : dataStore.keySet()) { // Iteramos sobre las claves
+                namesJson.append("\n {\"id\":")
+                        .append(key)  // Usamos directamente la clave
+                        .append(", \"name\": \"")
+                        .append(dataStore.get(key)) // Obtenemos el valor con la clave
+                        .append("\" },");
             }
 
             // Eliminar la última coma y cerrar el arreglo
@@ -158,18 +158,60 @@ public class HttpServer{
             }
             namesJson.append("]");
 
+            for (Integer i = 0; i < dataStore.size(); i++){
+                System.out.println("id: " + i + ", value: " + dataStore.get(i));
+            }
+
             // Crear la respuesta JSON
             response = "HTTP/1.1 200 OK\r\n"
                     + "Content-Type: application/json\r\n"
                     + "\r\n"
                     + "{ \"names\": " + namesJson.toString() + " }";
         } else if (method.equals("POST")) {
-            String newName = requestBody.replace("name=", "").trim();
+            String requestQuery = resourceURI.getQuery();
+            String newName = requestQuery.replace("name=", "").trim();
             dataStore.put(idCounter, newName);
+
+            for (Integer i = 0; i < dataStore.size(); i++){
+                System.out.println("id: " + i + ", value: " + dataStore.get(i));
+            }
+
             response = "HTTP/1.1 201 Created\r\n"
                     + "Content-Type: application/json\r\n"
                     + "\r\n"
                     + "{\"id\":" + idCounter + ", \"name\":\"" + newName + "\"}";
+        } else if (method.equals("PUT")) {
+            String requestQuery = resourceURI.getQuery();
+            String [] params = requestQuery.split("&");
+            String newName = "";
+            Integer id = -1;
+
+            for (String param : params) {
+                String[] splitParam = param.split("=");
+                if (splitParam[0].equals("id")){
+                    id = Integer.parseInt(splitParam[1]);
+                }
+                if (splitParam[0].equals("newName")){
+                    newName = splitParam[1];
+                }
+            }
+
+            dataStore.put(id - 1, newName);
+
+            response = "HTTP/1.1 200 Ok\r\n"
+                    + "Content-Type: application/json\r\n"
+                    + "\r\n"
+                    + "{\"id\":" + id + ", \"name\":\"" + newName + "\"}";
+        }else if (method.equals("DELETE")) {
+            String requestQuery = resourceURI.getQuery();
+            String stringId = requestQuery.replace("id=", "").trim();
+            Integer id = Integer.parseInt(stringId);
+
+            dataStore.remove(id - 1);
+
+            response = "HTTP/1.1 200 Ok\r\n"
+                    + "Content-Type: application/json\r\n"
+                    + "\r\n";
         } else {
             response = "HTTP/1.1 405 Method Not Allowed\r\n"
                     + "Content-Type: application/json\r\n"
