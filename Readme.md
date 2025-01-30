@@ -13,7 +13,7 @@ Estas instrucciones te ayudarán a obtener una copia del proyecto en tu máquina
 ### Instalación
 1. Clonar este repositorio:
    ```sh
-   git clone https://github.com/usuario/Taller1.git
+   git clone https://github.com/Mauricio-A-Monroy/AREP-Taller-1.git
    cd Taller1
    ```
 2. Crear el proyecto de Maven:
@@ -26,7 +26,7 @@ Estas instrucciones te ayudarán a obtener una copia del proyecto en tu máquina
    ```
 4. Ejecutar el servidor:
    ```sh
-   java -cp target/HTTPServer-1.0-SNAPSHOT.jar edu.escuelaing.app
+   java -jar target/HTTPServer-1.0-SNAPSHOT.jar
    ```
 
 ## Uso
