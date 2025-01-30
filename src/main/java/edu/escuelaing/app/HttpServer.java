@@ -196,7 +196,7 @@ public class HttpServer{
                 }
             }
 
-            dataStore.put(id - 1, newName);
+            dataStore.put(id, newName);
 
             response = "HTTP/1.1 200 Ok\r\n"
                     + "Content-Type: application/json\r\n"
