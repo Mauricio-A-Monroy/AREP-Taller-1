@@ -29,6 +29,12 @@ Estas instrucciones te ayudarán a obtener una copia del proyecto en tu máquina
    java -jar target/HTTPServer-1.0-SNAPSHOT.jar
    ```
 
+## Arquitectura
+
+![Blank diagram](https://github.com/user-attachments/assets/bf3a469d-f8f1-43b0-8e0e-bfee2e327092)
+
+
+
 ## Uso
 Después de ejecutar el servidor, abre un navegador y accede a `http://localhost:35000` para probar la aplicación web incluida.
 
