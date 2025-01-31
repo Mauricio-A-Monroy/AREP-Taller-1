@@ -63,7 +63,7 @@ public class HttpServer{
             System.out.println("Request: " + HTTPRequest);
             System.out.println("FilePath: " + filePath);
 
-            File file = new File("public" + filePath);
+            File file = new File("src/main/resources/static" + filePath);
 
             URI resourceURI = new URI(filePath);
 
