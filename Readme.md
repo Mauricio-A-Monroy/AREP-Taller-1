@@ -94,13 +94,31 @@ Después de ejecutar el servidor, abre un navegador y accede a `http://localhost
 
 ## Pruebas
 ### Pruebas Manuales
-Puedes realizar pruebas manuales con `curl`:
-```sh
-curl -X GET http://localhost:35000/app/rest-service
-curl -X POST "http://localhost:35000/app/rest-service?name=Mauricio"
-curl -X PUT "http://localhost:35000/app/rest-service?id=1&newName=Juan"
-curl -X DELETE "http://localhost:35000/app/rest-service?id=1"
-```
+- Petición GET para obtener index.html accediendo al recurso /:
+
+![image](https://github.com/user-attachments/assets/41c1067c-b93b-43d8-992e-34f6139548de)
+
+- Petición GET para obtener index.html accediendo al recurso /index.html:
+
+![image](https://github.com/user-attachments/assets/1a444b07-6623-478b-a4ba-e15f57cf99d8)
+
+- Petición GET para obtener App.html accediendo al recurso /app/app.html:
+
+![image](https://github.com/user-attachments/assets/84ab950a-745e-40d4-8fb9-c959a742a16d)
+
+- Petición POST para agregar nombre a la tabla:
+
+![image](https://github.com/user-attachments/assets/df2680e7-cdd7-46f5-8ff1-2b5f7f7b3a94)
+
+- Petición PUT para modificar nombre de la tabla:
+
+![image](https://github.com/user-attachments/assets/fdf79eb5-0694-4490-93ad-b4ad810dc03f)
+
+- Petición DELETE para eliminar nombre de la tabla:
+
+![image](https://github.com/user-attachments/assets/78d1b3a6-9273-43f7-8d8f-c8efab9955c7)
+
+
 
 ### Pruebas Automatizadas
 El proyecto incluye pruebas con JUnit para verificar el correcto funcionamiento del servidor y la API REST. Para ejecutarlas:
