@@ -126,9 +126,6 @@ El proyecto incluye pruebas con JUnit para verificar el correcto funcionamiento 
 mvn test
 ```
 
-## Despliegue
-Para desplegar este servidor en un entorno en vivo, puedes empaquetarlo en un contenedor Docker o configurar un servicio en la nube.
-
 ## Tecnologías Utilizadas
 - **Java** - Lenguaje principal del servidor web.
 - **HTML, CSS, JavaScript** - Aplicación web cliente.
@@ -137,14 +134,8 @@ Para desplegar este servidor en un entorno en vivo, puedes empaquetarlo en un co
 ## Contribuyendo
 Este proyecto es de código abierto. Para contribuir, por favor sigue los lineamientos en `CONTRIBUTING.md`.
 
-## Versionado
-Se utiliza **SemVer** para el versionado. Las versiones disponibles pueden encontrarse en los tags del repositorio.
-
 ## Autor
 **Mauricio Alejandro Monroy Jiménez**
-
-## Licencia
-Este proyecto está bajo la **licencia MIT**. Para más detalles, consulta el archivo `LICENSE.md`.
 
 ## Agradecimientos
 Agradecimiento especial al profesor por su guía y apoyo en el desarrollo de este taller.
